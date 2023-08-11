@@ -1,14 +1,24 @@
 const curry = (fn: (...args: any) => any) => {
   return function curried(...args: any) {
     if (args.length >= fn.length) {
-      return fn.apply(this, args);
+      return fn(...args);
     } else {
-      return function (...args2: any) {
-        return curried.apply(this, args.concat(args2));
-      };
+      return (...newArgs: any) => curried(...[...args, ...newArgs]);
     }
   };
 };
+
+// const curry = (fn: (...args: any) => any) => {
+//   return function curried(...args: any) {
+//     if (args.length >= fn.length) {
+//       return fn.apply(this, args);
+//     } else {
+//       return function (...args2: any) {
+//         return curried.apply(this, args.concat(args2));
+//       };
+//     }
+//   };
+// };
 
 const join = (a: any, b: any, c: any) => {
   return `${a}_${b}_${c}`;
